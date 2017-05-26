@@ -1,0 +1,11 @@
+local_settings.py
+twitter_env
+*.pyc
+*~
+*.ca
+*.cert
+*.key
+*.out
+*.csv
+data/data/*
+twitter.sql

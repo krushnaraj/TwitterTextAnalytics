@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Twitter Analysis - CSE557A</title>
+  <!-- Tell the browser to be responsive to screen width -->
+  <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+  <!-- Bootstrap 3.3.6 -->
+  <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
+  <!-- Ionicons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
+  <!-- Theme style -->
+  <link rel="stylesheet" href="dist/css/AdminLTE.css">
+  <!-- AdminLTE Skins. Choose a skin from the css/skins
+       folder instead of downloading all of them to reduce the load. -->
+  <link rel="stylesheet" href="dist/css/skins/skin-blue.css">
+  <!-- iCheck -->
+  <link rel="stylesheet" href="plugins/iCheck/flat/blue.css">
+  <!-- bootstrap wysihtml5 - text editor -->
+  <link rel="stylesheet" href="plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css">
+  <!-- EasyAutocomplete -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/easy-autocomplete/1.3.5/easy-autocomplete.min.css"> 
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/easy-autocomplete/1.3.5/easy-autocomplete.themes.min.css"> 
+  <!-- Google font -->
+  <link href="https://fonts.googleapis.com/css?family=Roboto|Open+Sans" rel="stylesheet">
+  <!-- Customized Stylesheet-->
+  <link rel="stylesheet" href="css/style.css">
+
+  <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+  <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+  <!--[if lt IE 9]>
+  <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+  <![endif]-->
+</head>
+
+<style type="text/css">
+  .datamaps-legend dt{
+    clear: none;
+  }
+  .datamaps-legend {
+    color: black;
+    top: -150px;
+    position: relative;
+    display: inline;
+    text-align: center;
+    padding: 180px;
+  }
+}
+</style>
+<body class="hold-transition skin-blue sidebar-mini sidebar-collapse">
+<div class="wrapper">
+
+  <header class="main-header ">
+
+      <!-- Logo -->
+      <a href="index.html" class="logo">
+        <!-- mini logo for sidebar mini 50x50 pixels -->
+        <span class="logo-mini"><img src="images/twitter_logo.png" style="height:30px"></span>
+        <!-- logo for regular state and mobile devices -->
+        <span class="logo-lg"><b>Twitter Analysis</b></span>
+      </a>
+
+      <!-- Header Navbar: style can be found in header.less -->
+      <nav class="navbar navbar-static-top">
+        <!-- Sidebar toggle button-->
+        <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
+          <span class="sr-only">Toggle navigation</span>
+        </a>
+      </nav>
+    </header>
+  <!-- Left side column. contains the logo and sidebar -->
+  <aside class="main-sidebar">
+    <!-- sidebar: style can be found in sidebar.less -->
+    <section class="sidebar">
+      
+      <!-- sidebar menu: : style can be found in sidebar.less -->
+      <ul class="sidebar-menu">
+
+        <li class="header">Twitter Analysis</li>
+
+        <!-- home page side menu-->
+
+        <!-- charts side menu -->
+        <li class="treeview">
+          <a href="#">
+            <i class="fa fa-dashboard"></i> <span>Charts</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+          </a>
+          <ul class="treeview-menu">
+            <li><a href="#summary"><i class="fa fa-circle-o"></i>Data Summary</a></li>
+            <li><a href="#map"><i class="fa fa-circle-o"></i>Map</a></li>
+<!--             <li><a href="#wordcloud"><i class="fa fa-circle-o"></i>Word Cloud</a></li>
+ -->          </ul>
+        </li>
+
+        <!-- results side menu -->
+        <li>
+          <a href="#results">
+            <i class="fa fa-share"></i> <span>Results</span>
+            <span class="pull-right-container">
+            </span>
+          </a>
+        </li>
+
+        <!-- process book side menu -->
+        <li>
+          <a href="#progress-book">
+            <i class="fa fa-edit"></i><span>Process Book</span>
+            <span class="pull-right-container">
+            </span>
+          </a>
+        </li>
+
+        <!-- contact -->
+        <li>
+          <a href="#contact">
+            <i class="fa fa-envelope"></i> <span>Contact</span>
+            <span class="pull-right-container">
+            </span>
+          </a>
+        </li>
+      </ul>
+    </section>
+    <!-- /.sidebar -->
+  </aside>
+
+  <!-- Content Wrapper. Contains page content -->
+  <div id="summary" class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <h1>
+       
+        <center>Dataset Summary</center>
+      </h1>
+    </section>
+
+    <!-- Main content -->
+    <div class="container-fluid">
+        <section class="content">
+          <!-- /.row -->
+          <!-- Main row -->
+          <div class="row box" style="border-spacing: 10px">
+            <!-- Left col -->
+            <section class="col-lg-7 connectedSortable">
+              <!-- Custom tabs (Charts with tabs)-->
+              <div class="nav-tabs-custom">
+                <div class="box box-solid box-primary" id="barChart" style="height: 500px; width: 100%; background: #ffffff; border: 0px solid"> </div>
+              </div>
+            </section>
+
+            <!-- right col (We are only adding the ID to make the widgets sortable)-->
+            <section class="col-lg-5 connectedSortable">
+              <div class="box box-solid box-primary" id="timeline" style="height:500px; background: #ffffff; border: 0px solid"> </div>
+              <!-- /.box -->
+            </section>
+            <!-- right col -->
+          </div>
+          <!-- /.row (main row) -->
+        </section>
+    </div>
+
+    <div id="map" class="container-fluid">
+ <!--      <div class="container big-margin-container">
+        <h2>Map</h2>
+        <hr>
+      </div> -->
+      <section class="content-header">
+        <h1>
+         
+          <center>Map</center>
+        </h1>
+      </section>
+
+      <section class="content">
+      <!-- <div  class="container-fluid small-margin-container">  -->
+        <div class="row box"  style="border-spacing: 10px">
+          <section class="col-md-8 connectedSortable">
+            <div class="box box-solid box-primary" style="background: #ffffff; height:800px; border: 0px solid">
+              <div class="row">
+                <div id="legend"></div>
+                <div id="circle-legend"></div>
+                <div id="mapvis" class="map container-fluid"></div>
+              </div>
+              <div class="row">
+                <div id="themeriver" class="map container-fluid">
+                  <div class="vBar"></div>
+                  <div class="mytooltip"><p></p></div>
+                </div>
+              </div>
+              
+            </div>
+			
+          </section>
+
+          <section class="col-md-4 connectedSortable">
+            <div class="row box box-solid box-info" style="background: #ffffff; border: 0px solid">
+              <div class="row" style="margin-left:30px;">
+                <input id="search-hashtag" class="search-bar" autocomplete="off" />
+              </div>
+              <div class="row">
+                <div id='small-wordcloud-vis' style = "margin-left: 30px; height: 300px"></div>
+				
+              </div>
+            </div>
+      			<div class="row box box-solid box-info" style="background: #ffffff; border: 0px solid">
+     			    <div id="hoverinfo" class ="row" style="height:320px; width: 350px; margin: 0 auto; margin-top: -40px; "></div>
+        		</div>
+          </section>
+        <!-- </div> -->
+      </div>
+      </section>
+    </div>
+
+  <!-- word cloud -->
+  <!-- <div id="wordcloud" class="container-fluid content-wrapper">
+    <div>
+      <h2>Word Cloud</h2>
+      <hr>
+    </div>
+    <div>
+      <div id='wordcloud-vis'></div>
+    </div>
+  </div> -->
+
+  <!-- results -->
+    <div id="results" class="container-fluid ">
+      <section class="content-header">
+        <h1>
+          
+          <center>Results</center>
+        </h1>
+      </section>
+
+      <section class="content">
+        <div class="row box" >
+          <section class="col-md-12 connectedSortable">
+            <h3 class="content-header"><b><u>Summary</u></b></h3>
+            <p>From our summary visualizations, we can see that people in United States tweeted the most during the weekend, with number of tweets fluctuating during weekdays but people tweeted the least on Thursday. This makes sense since most events occurred on weekends and people tweeted or posted on social media about the events right after the event over the weekend and some at the beginning of the week.</p>
+
+            <p>About 75% of the tweets have neutral sentiments, and positive tweets were found to be more prevalent than negative tweets, which is wonderful to see, especially when people sometimes say social media is becoming toxic. However, there is no specific pattern of tweets such as weekends being more positive, and we believe that the sentiment of the tweets depend more on the events happening instead of the days.
+            </p>
+
+            <p>From our detailed analysis of state-by-state tweets, we found that California and New York are the states where most tweets come from. Florida is the third state and Texas is the fourth, where most twitter users are.</p>
+
+            <p>For most days, the average sentiment of the states are between neutral and positive. Only a few states have changes throughout those days, and Wyoming was the only one which has most changes such as it being the most neutral state all over the United States on April 12 and then becoming the most positive state on April 13. The most used hashtag on April 13 was '#jacksonhole' and we found that there was a special music event that played Mozart's first masterpiece on that day in Jackson Hole.</p>
+
+            <p>On 14th and 16th, we found the states to have more positive tweets compared to other days. On Friday, April 14th, we found that "#goodfriday" was one of the most used hashtags, and we can see why there were more positive tweets on April 14th. We also found more positive sentiment tweets on April 16th and the most popular topics for that day were '#happyeaster' and '#easter'.
+            </p>
+
+            <!-- April 12 - columnbus - john mayer -->
+            <h3 class="content-header"><b>Hypothesis Answers</b></h3>
+            <p><b>Q1: How many people are tweeting in different states depending on day?</b></br>
+            As we've speculated, people tweeted the most during the weekend all over the United States, with the highest numbers coming from California and New York, followed by Florida and then Texas.</p>
+
+            <p><b>Q2: What are the trending topics on twitter?</b></br>
+            '#traffic' was the most popular topic during the weekdays, and disappeared over the weekend as people seemed to be more focused on other occasions, as we can see other hashtags such as '#easter'. We can also see the trend of people posting more '#photos' over the weekend, which are most likely to be the pictures taken at the special occasions over the weekend.
+            </p>
+
+            <p><b>Q3: Are there sentiment value differences based on different states in the United States?</b></br>
+            The sentiment values changes slightly across all states, but the sentiment values depend mainly on the events happening in the area. 
+            </p>
+          </section>
+        </div>
+      </section>
+    </div>
+
+  <!-- progress book -->
+    <div id="progress-book" class="container-fluid ">
+      <section class="content-header">
+        <h1>
+          <center>Process Book</center>
+        </h1>
+      </section>
+      <hr size="4">
+      <section class="content">
+        <div class="row box" >
+          <section class="col-md-12 connectedSortable">
+
+            <h3 class="content-header"><b><u>Overview and Motivation</u></b></h3>
+            <p>Social networks have changed the way people communicate with each other. Today the world is
+            lot more connected than it was before. People are also more open towards voicing their
+            opinions regarding issues of their interests. These issues can be related to sports, careers,
+            politics, art etc.</p>
+            <p>
+            Social network websites like Twitter and Facebook provide great resources to learn about the
+            preferences and interests of people in different demographics. Based on those interests and
+            preferences, it’s easy to know about the sentiments and the location of the people. The data
+            collected from these social networking websites is mostly in the form of raw text, but based on
+            the context it’s easy to know the sentiments and opinions of people residing in different
+            demographics. Our goal for the project is to gather, group and analyze such text data and
+            provide meaningful insights in the form of visualizations.</p>
+            <p>
+            For our project we have decided to work with twitter data which was collected for over a week.
+            Tweets are complex and have many different attributes. It would be very interesting to visualize
+            such data and discover any patterns in terms of how people tweet, where they tweet and when
+            they tweet. </p>
+            
+            <h3 class="content-header"><b><u>Related Work</u></b></h3>
+            <p>
+            We worked with a lot of numerical data during the class homework assignments, but never
+            worked with text data. We felt that using the text data for our project would also give us the
+            opportunity to think outside the box and come up with visualizations that draw meaningful
+            insights on the underlying dataset. Also, since everyone uses social media, we felt that the text
+            data gives us to have a larger target audience. Our main goal is to develop a tool which can be
+            used by people of all age groups.</p>
+            <p>
+            Visualizations are often used to understand the data on social media. For example,<strong>
+            https://www.csc2.ncsu.edu/faculty/healey/tweet_viz/tweet_app/.</strong> This website can give a sense
+            of people’s opinions on current events. We also would like to create visualizations which will
+            help data make sense for people of all age groups and connect the data with the events and
+            provide a bigger picture for everyone.</p>
+            <h3 class="content-header"><b><u>Questions</u></b></h3>
+            <p><b>1. How many people are tweeting in different states depending on day?</br>
+              2. What are the trending topics on twitter?</br>
+              3. Are there sentiment value differences based on different states in United States?
+            </b></p>
+            <p>
+            By using the visualizations for twitter data, we can learn a summary of situations happening throughout the country as well as how twitter users feel on these situations from the state-by-state sentiment analysis. Also, we can learn the times when twitter users most used and least used based on time of the day in different states.
+            </br></br>
+
+            These visualizations can highly benefit companies as they can learn the time most twitter users are active, things people are interested, etc., and answer the questions for whom they should advertise their products, when and where, etc. These can also give information to anyone who are interested in learning what’s happening on twitter in a minute.
+            </p>
+
+            <h3 class="content-header"><b><u>Data</u></b></h3>
+  		      <p>
+            The twitter data comes from a project of the cse530s class. A script has been implemented to
+            programmatically stream tweets from twitter streaming APIs. Approximately 1 million tweets
+            have been downloaded for over a week. We are streaming more tweets from twitter and hope to
+            discover more interesting results. To process the data, we implemented scripts to extract
+            hashtags from the tweets. To find meaningful features, we also leveraged database and SQL
+            queries to filter and aggregate the tweets.</p>
+            <p>Links:
+            Twitter Streaming API: https://dev.twitter.com/streaming/overview
+            NHGIS: https://www.nhgis.org/</p>
+            <p><b>Source</b>: The twitter data comes from a project of the cse530s class. A script has been implemented to programmatically stream tweets from twitter streaming APIs. Approximately 1 million tweets have been downloaded for over a week. We plan to use the same script to stream the data for a longer period of time because we want to visualize its time dependence. We will also need county and state boundary data to do GIS visualization for the tweets. This data is also from cse530s class and it is downloaded from NHGIS.
+            </p>
+
+            <h3 class="content-header"><b><u>Exploratory Data Analysis</u></b></h3>
+        		<p>Initialliy we decided to use D3 Datamap with bubbles, where the size of the bubble represents the number of tweets and the color of the states represent the sentiment for that state. We also decided to provide a timeline feature, where the user can filter the map based on the date. Later we replaced the date slider with a themeriver which displays how the tweets changes based on a particular hashtag. The benefits of this helps in identifying peaks in the number of tweets based on the particular hashtags. For ex: there is a peak in the themeriver for Easter day 2017-04-16.</p>
+        		<p>The user can interact with the visualization based on several preferences like the map, the bubbles, the themeriver and the search box. We also added a histogram which displays the number of positive, negative and neutral tweets when hovered over a particular state. The map, themeriver, the word clouds and the bar plots are bound to each other. This gives the user more freedom to narrow down the visualization based on his/her preference.</p>
+  		
+            <h3 class="content-header"><b><u>Design Evolution</u></b></h3>
+  		      <p>
+        		We have kept the same design layout as the one mentioned in the proposal. We were planning to
+            implement a dashboard with 3 pages in total. The first page would provide the summary
+            of the project, the second the map visualization and the third implementing the world clouds.
+            Later we reduced the number of pages to 2 as we decided to include the map and the word cloud on the same page. We decided to remove it, because we felt having the map bound to the word cloud would help the user to interact with the map and the word cloud at the same time.</p>
+
+            <p>We designed to use a slider to present a timeline for the map, but we changed to a themeriver later as the slider does not provide much information. With themeriver, we present the amount of tweets for the most used hashtags over the week.
+            </p>
+          
+            <h3 class="content-header"><b><u>Implementation</u></b></h3>
+        		<p>
+        		We managed to implement all the features discussed in the first presentation. We did make a few changes along the way, but that was mainly to improve the user experience. We used D3, HTML, Javascript, CSS and Python to build our dashboard. For the Datamap the color of the state will represent the sentiment for that state and the size of the bubble will represent the number of tweets. When the user hovers over the bubble a histogram will be generated which displays the number of positive, negative and neutral tweets along with a word cloud for that state. The user also has the options to search for a particular hashtag in the search box. Our initial challenge was to reduce the response time required to generate the dynamic visualization. This helps the user to stay engaged with the dashboard. Later we also decided to implement a uniform color scheme for the whole dashboard which includes the summary page, the map, themeriver and histogram. We also added a results page and a process book to document our findings and learning experience from the project
+            </p>
+          
+            <h3 class="content-header"><b><u>Evaluation</u></b></h3>
+  		      <p>
+            From the data we were able to analyze the sentiments of people residing in different states. We found that people tend to tweet a lot during weekends. We managed to answer all our questions. We were able to get the number of tweets from each state and categorize the tweets into positive, neutral and negative. We were also able to identify the most trending topics based on the word clouds. Our visualization gives the user the freedom to interact with the map, word clouds, histogram and themeriver at the same time. The user can also customize his/her search preference using the search box. We could further improve our visualization by collecting more data for several months. This would help us to learn about the sentiment and nature of tweets for different seasons. 
+            </p>
+          </section>
+        </div>
+      </section>
+    </div>
+	  
+    <div id="contact" class="container-fluid ">
+
+      <section class="content-header">
+        <h1>
+         
+         <center>Contact</center>
+        </h1>
+      </section>
+	    <hr size ="4">
+      <section class="content" style="height: 100px">
+        <div class="row box">
+          <div class="col-md-4 connectedSortable">
+            <h3 style="text-align: center">Wint Yee Hnin</h3>
+          </div>
+          <div class="col-md-4 connectedSortable">
+            <h3 style="text-align: center">Yongzheng Huang</h3>
+          </div>
+          <div class="col-md-4 connectedSortable">
+            <h3 style="text-align: center">Krushnaraj Kamtekar</h3>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    </div>
+  </div>
+</div>
+  <!-- Add the sidebar's background. This div must be placed
+       immediately after the control sidebar -->
+  <div class="control-sidebar-bg"></div>
+<!-- ./wrapper -->
+
+<!-- jQuery -->
+<script src="https://code.jquery.com/jquery-3.2.1.js" integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE=" crossorigin="anonymous"></script>
+<!-- jQuery UI -->
+<link href="https://code.jquery.com/ui/1.12.1/themes/ui-lightness/jquery-ui.css" rel="stylesheet">
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<!-- Bootstrap js -->
+<script src="bootstrap/js/bootstrap.min.js"></script>
+<!-- AdminLTE App js -->
+<script src="dist/js/app.js"></script>
+<!-- D3.js -->
+<script src="https://d3js.org/d3.v4.min.js"></script>
+<script type="text/javascript">
+  var d3v4 = d3; // Use both v3 and v4. v4 is for themeriver.
+</script>
+<script src="https://d3js.org/d3.v3.min.js"></script>
+<!-- D3 map shape files -->
+<script src="https://d3js.org/topojson.v1.min.js"></script>
+<!-- D3 datamap -->
+<script src="https://datamaps.github.io/scripts/datamaps.usa.min.js"></script>
+<!-- word cloud library -->
+<script src="https://rawgit.com/jasondavies/d3-cloud/master/build/d3.layout.cloud.js"></script>
+<!-- easyautocomplete js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/easy-autocomplete/1.3.5/jquery.easy-autocomplete.min.js"></script>
+<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+<!-- Dygraph -->
+<script type="text/javascript" src="js/dygraph-combined.js"></script>
+<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+
+<!-- Constants -->
+<script src="js/constants.js"></script>
+<!-- word cloud wrapper function -->
+<script src="js/wordcloud.js"></script>
+<!-- generate map visualization -->
+<script src="js/usmap.js"></script>
+<!-- themeriver for map visualization -->
+<script src="js/themeriver.js"></script>
+<!-- slider for map visualization -->
+<script src="js/mapslider.js"></script>
+<!-- circle legend library -->
+<script src="js/circle-legend.js"></script>
+<!-- summary page scripts -->
+<script type="text/javascript" src="js/summary.js"></script>
+<!-- Legend for sentiment color -->
+<script src="js/legend.js"></script>
+<!-- App logic js -->
+<script src="js/main.js"></script>
+</body>
+</html>

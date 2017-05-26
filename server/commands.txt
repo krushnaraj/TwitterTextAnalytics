@@ -1,0 +1,54 @@
+# Create python environment
+virtualenv twitter_env
+source twitter_env/bin/activate
+sudo apt install libpq-dev python-dev
+
+# Setup EC2
+ssh bus
+sudo apt-get update
+sudo apt-get install postgresql postgresql-contrib
+sudo apt-get install postgis
+sudo -u postgres psql
+
+# DB
+pg_dump --no-owner -C team17_ratingbias > twitter.sql
+scp twitter.sql bus:~
+psql -f twitter.sql
+
+# Run django server
+python manage.py runserver 0.0.0.0:8000
+nohup python manage.py runserver 0.0.0.0:8000 > server.out &
+
+# URL
+http://ec2-54-91-157-7.compute-1.amazonaws.com:8000/twitter_vis/
+http://ec2-54-91-157-7.compute-1.amazonaws.com:8000/twitter_vis/tweets_states/
+
+# simple http server
+python -m SimpleHTTPServer 9000
+
+# Indexes to speed up queries
+CREATE EXTENSION pg_trgm;
+create index on hashtag using gin (hashtag gin_trgm_ops);
+create index on tweet (publish_date);
+
+# https
+nohup uwsgi --https :8000,../tk.cert,../tk.key --module twitter.wsgi > server.out &
+
+# Create temp table for long queries
+create table tweets_agged as select s.name as name, 
+                         s.abbreviation as abbreviation,
+                         s.statefp as statefp, 
+                         s.latitude as latitude, 
+                         s.longitude as longitude,
+                         t.publish_date as publish_date,
+                         count(*) as num_tweet,
+                         sum(case when t.sentiment = 0 then 1 else 0 end) as num_neg_tweet,
+                         sum(case when t.sentiment = 2 then 1 else 0 end) as num_neu_tweet,
+                         sum(case when t.sentiment = 4 then 1 else 0 end) as num_pos_tweet,                    
+                         avg(t.sentiment) as avg_sentiment,
+                         string_agg(hashtag, ' ') as hashtags
+                 from tweet as t 
+                     join county as c on t.county_fips = c.county_fips
+                     join state as s on c.statefp = s.statefp
+                     join tweet_has_hashtag as thh on t.id = thh.id
+                     group by (t.publish_date, s.name, s.abbreviation, s.statefp, s.latitude, s.longitude);
