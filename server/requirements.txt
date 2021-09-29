@@ -11,7 +11,7 @@ enum34==1.1.6
 gunicorn==19.6.0
 ipython==5.1.0
 ipython-genutils==0.1.0
-nltk==3.2.2
+nltk==3.6.3
 packaging==16.8
 pathlib2==2.1.0
 pexpect==4.2.1
